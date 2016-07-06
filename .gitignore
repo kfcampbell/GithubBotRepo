@@ -1,0 +1,7 @@
+*.pyc
+GithubTest.py
+Examples.rtf
+*.swp
+.DS_Store
+.localized
+keys.py
