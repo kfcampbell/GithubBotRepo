@@ -15,9 +15,8 @@ print time_string
 name = "Keegan"
 email = "keeg4n.campbell@gmail.com"
 committer_string = "\"committer\": {\"name\": \"" + name + "\", \"email\": \"" + email + "\"}"
-# content = "Here's some basic content."
-# content_encoded = base64.b64encode(content)
-content = "bXkgbmV3IGZpbGUgY29udGVudHM="
+content = "Today's date is " + time_string + "."
+content_encoded = base64.b64encode(content)
 message = "Commit for " + time_string
 path = "Updates/" + time_now + ".txt"
 branch = "master"
@@ -33,7 +32,7 @@ command += "\"message\": \"" + message + "\", "
 # add the committer info
 command += committer_string + ", "
 # add the content
-command += "\"content\": \"" + content + "\", "
+command += "\"content\": \"" + content_encoded + "\", "
 # add the branch
 command += "\"branch\": \"" + branch + "\"}\' "
 # add the url
