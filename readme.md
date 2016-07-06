@@ -3,7 +3,7 @@
 I know they got rid of streaks, but this is a bot I made to play with Github's API to post a new file every day.
 
 ## Usage
-Create a new repo, then start a screen on your server and run a cron job to run the GithubUpdate.py script each day.
+Create a new repo, then run a cron job to run the GithubUpdate.py script each day.
 
 ## Things It Would Be Nice To Add
 
