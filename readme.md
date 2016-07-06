@@ -7,6 +7,6 @@ Create a new repo, then start a screen on your server and run a cron job to run 
 
 ## Things It Would Be Nice To Add
 
-[] a better way to construct a JSON request than just string manipulation
-[] simply update a single file rather than add a new file each time
+* a better way to construct a JSON request than just string manipulation
+* simply update a single file rather than add a new file each time
 
