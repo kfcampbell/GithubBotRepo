@@ -19,7 +19,7 @@ committer_string = "\"committer\": {\"name\": \"" + name + "\", \"email\": \"" +
 # content_encoded = base64.b64encode(content)
 content = "bXkgbmV3IGZpbGUgY29udGVudHM="
 message = "Commit for " + time_string
-path = time_now + ".txt"
+path = "Updates/" + time_now + ".txt"
 branch = "master"
 link = "https://api.github.com/repos/kfcampbell/GithubBotRepo/contents/" + path
 
