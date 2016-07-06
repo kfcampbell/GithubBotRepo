@@ -9,4 +9,4 @@ Create a new repo, then run a cron job to run the GithubUpdate.py script each da
 
 * a better way to construct a JSON request than just string manipulation
 * simply update a single file rather than add a new file each time
-
+* a way to construct base64-encoded and hashed content rather than using a hardcoded version
