@@ -4,6 +4,7 @@ import os
 import time
 import base64
 import json
+import requests
 from keys import token, name, email
 
 # get today's date
@@ -25,6 +26,10 @@ link = "https://api.github.com/repos/kfcampbell/GithubBotRepo/contents/" + path
 with open(file_name, "a") as daily_file:
     daily_file.write(content + "\n")
 
+# construct the header
+github_headers = {'Authorization' : 'token ' + token}
+print github_headers
+
 # construct the json string
 committer = {
     "name" : name,
@@ -40,6 +45,13 @@ json_data = {
 }
 
 print json_data
+req = requests.Request('PUT', link, github_headers, json_data)
+prepared = req.prepare()
+print prepared 
+# r = requests.post(link, json=json.dumps(json_data), headers=github_headers)
+# print r.text # this is returning a not found error every time.
+# this is currently a mess. i need to go back and fix everything.
+
 
 # actual string to start with and add to
 command = "curl -i -X PUT -H \'Authorization: token "
@@ -62,7 +74,7 @@ command += "\"branch\": \"" + branch + "\"}\' "
 command += link
 """
 
-print command
+# print command
 
 # now we run the thing.
-os.system(command)
+# os.system(command)
