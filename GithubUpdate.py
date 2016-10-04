@@ -3,7 +3,7 @@
 import os
 import time
 import base64
-from keys import token
+from keys import token, name, email
 
 # get today's date
 time_now = (time.strftime("%m-%d-%Y-%I-%M-%S"))
@@ -12,8 +12,6 @@ print time_now
 print time_string
 
 # variables to update the string
-name = "Keegan"
-email = "keeg4n.campbell@gmail.com"
 committer_string = "\"committer\": {\"name\": \"" + name + "\", \"email\": \"" + email + "\"}"
 content = "Today's date is " + time_string + "."
 content_encoded = base64.b64encode(content)
