@@ -3,6 +3,7 @@
 import os
 import time
 import base64
+import json
 from keys import token, name, email
 
 # get today's date
@@ -24,9 +25,29 @@ link = "https://api.github.com/repos/kfcampbell/GithubBotRepo/contents/" + path
 with open(file_name, "a") as daily_file:
     daily_file.write(content + "\n")
 
+# construct the json string
+committer = {
+    "name" : name,
+    "email" : email
+}
+
+json_data = {
+    "path" : path,
+    "message" : message,
+    "committer" : committer,
+    "content" : content,
+    "branch" : branch
+}
+
+print json_data
+
 # actual string to start with and add to
 command = "curl -i -X PUT -H \'Authorization: token "
 command += token
+command += "-d \'" + str(json_data)
+command += " " + link
+
+""" old way of doing things below:
 # add the path
 command += "\' " + "-d \'{\"path\": \"" + path + "\", "
 # add the message
@@ -39,6 +60,7 @@ command += "\"content\": \"" + content_encoded + "\", "
 command += "\"branch\": \"" + branch + "\"}\' "
 # add the url
 command += link
+"""
 
 print command
 
