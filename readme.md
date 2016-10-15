@@ -12,3 +12,6 @@ Clone the repo, then make a cron job to run the GithubUpdate.py script each day.
 * a way to construct base64-encoded and hashed content rather than using a hardcoded version (done)
 * store each new file in a folder rather than in the main directory (done)
 * randomly commit more than once on some occasions and not at all on others
+
+## Dependencies
+* github3.py (pip install --pre github3.py)

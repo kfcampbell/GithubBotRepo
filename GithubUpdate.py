@@ -3,40 +3,36 @@
 import os
 import time
 import base64
-from keys import token, name, email
+from keys import token, username, name, email
+from github3 import login
+
+# login to github and get the correct repository
+access = login(username=username, token=token)
+repository = access.repository(username, 'GithubBotRepo')
+filename = 'daily_updates.txt'
 
 # get today's date
 time_now = (time.strftime("%m-%d-%Y-%I-%M-%S"))
 time_string = (time.strftime("%m/%d/%Y"))
-print time_now
-print time_string
 
-# variables to update the string
-committer_string = "\"committer\": {\"name\": \"" + name + "\", \"email\": \"" + email + "\"}"
+# construct the contents of our commit and commit message.
 content = "Today's date is " + time_string + "."
-content_encoded = base64.b64encode(content)
-message = "Commit for " + time_string
-path = "Updates/" + time_now + ".txt"
-branch = "master"
-link = "https://api.github.com/repos/kfcampbell/GithubBotRepo/contents/" + path
+commit_message = "Commit for " + time_string
 
-# actual string to start with and add to
-command = "curl -i -X PUT -H \'Authorization: token "
-command += token
-# add the path
-command += "\' " + "-d \'{\"path\": \"" + path + "\", "
-# add the message
-command += "\"message\": \"" + message + "\", "
-# add the committer info
-command += committer_string + ", "
-# add the content
-command += "\"content\": \"" + content_encoded + "\", "
-# add the branch
-command += "\"branch\": \"" + branch + "\"}\' "
-# add the url
-command += link
+file_contents = repository.file_contents(filename).decoded
+file_contents += "\n" + content
 
-print command
+# so the files in the repos are stored as tuples, with <name, file object/contents> in them.
+# get the directory contents
+dir_contents = repository.directory_contents('/')
 
-# now we run the thing.
-os.system(command)
+# get the correct file. is there a better way to do this than iterating through?
+file_to_update = None
+for item in dir_contents:
+    if(item[0] == filename):
+        file_to_update = item
+
+# make sure we found the right file before we update it.
+if(file_to_update != None):
+    # actually update the file.
+    file_to_update[1].update(commit_message, file_contents)
