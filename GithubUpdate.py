@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# adding a comment
 
 import time
 from keys import token, username, name, email, branch
