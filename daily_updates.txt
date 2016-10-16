@@ -1,1 +1,7 @@
 Today's date is 10/15/2016.
+<<<<<<< HEAD
+=======
+
+Today's date is 10/15/2016.
+Today's date is 10/15/2016.
+>>>>>>> master
