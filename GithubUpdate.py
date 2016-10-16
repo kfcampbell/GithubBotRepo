@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 
-import os
 import time
-import base64
 from keys import token, username, name, email, branch
 from github3 import login
 
