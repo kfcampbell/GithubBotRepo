@@ -36,9 +36,10 @@ class github_bot():
                 self.file_to_update = item
 
         # make sure we found the right file before we update it.
-        if(self.file_to_update != None):
-            # actually update the file.
+        try:
             self.file_to_update[1].update(self.commit_message, self.file_contents, branch)
+        except:
+            print "error with the bot"
 
 # now we need to instantiate this class.
 bot = github_bot()
