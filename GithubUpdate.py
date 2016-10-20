@@ -43,8 +43,6 @@ class github_bot():
             
     # this is where we determine how many times we're going to commit today
     def determine_commits(self):
-        print "entered determining commits function."
-        
         # need to get a random number. say, between 1 and 8 commits, weighted towards the bottom?
         number_of_commits = 0
         rand = random.randint(1, 100) # get a random integer between 1 and 100.
@@ -68,16 +66,21 @@ class github_bot():
             number_of_commits = 1
         print number_of_commits
         
-        # now commit this many times.
-        for time in range(0,number_of_commits):
-            # run needs to be modified to take the commit message and stuff.
-            # get today's date
-            self.time_now = (time.strftime("%m-%d-%Y-%I-%M-%S"))
-            self.time_string = (time.strftime("%m/%d/%Y"))
-
+        # make the first commit.
+        self.run()
+        
+        # make any further commits.
+        for time in range(1,number_of_commits):
             # construct the contents of our commit and commit message.
-            self.content = "Today's date is " + self.time_string + "."
-            self.commit_message = "Commit for " + self.time_string
+            self.content = "Commit number " + str(time + 1) + " for " + self.time_string
+            self.commit_message = "Another commit for " + self.time_string
+            self.file_contents = self.repository.file_contents(self.filename).decoded
+            self.file_contents += "\n" + self.content 
+            
+            print "content: " + self.content
+            print "commit message: " + self.content
+            print self.file_contents
+            self.run()
 
 
 # now we need to instantiate this class.
