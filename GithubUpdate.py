@@ -79,9 +79,9 @@ class GithubBot:
             self.file_contents = self.repository.file_contents(self.filename).decoded
             self.file_contents += "\n" + self.content 
             
-            print "content: " + self.content
-            print "commit message: " + self.commit_message
-            print self.file_contents
+            # print "content: " + self.content
+            # print "commit message: " + self.commit_message
+            # print self.file_contents
             self.run(self.commit_message, self.file_contents)
 
 

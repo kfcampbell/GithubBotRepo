@@ -9,7 +9,6 @@ def get_commit_message():
         url = "http://whatthecommit.com/index.txt"
         open_url = urllib2.urlopen(url)
         commit_message = open_url.read().rstrip()
-        print commit_message
         return commit_message
     except Exception, e:
         return None
