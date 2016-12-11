@@ -6,7 +6,7 @@ from keys import token, username, name, email, branch
 from github3 import login
 
 
-class github_bot():
+class GithubBot():
 
     # init method
     def __init__(self):
@@ -86,7 +86,7 @@ class github_bot():
 
 # now we need to instantiate this class.
 try:
-    bot = github_bot()
+    bot = GithubBot()
     bot.determine_commits()
 except Exception, e:
     print "error with the bot: " + e.message
