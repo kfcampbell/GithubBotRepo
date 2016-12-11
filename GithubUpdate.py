@@ -23,7 +23,7 @@ class github_bot():
         self.content = "Today's date is " + self.time_string + "."
         self.commit_message = "Commit for " + self.time_string
 
-        self.file_contents = self.repository.file_contents(self.filename).decoded
+        self.file_contents = self.repository.file_contents(self.filename, branch).decoded
         self.file_contents += "\n" + self.content
 
         # so the files in the repos are stored as tuples, with <name, file object/contents> in them.
@@ -36,6 +36,7 @@ class github_bot():
         for item in self.dir_contents:
             if item[0] == self.filename:
                 self.file_to_update = item
+                break
 
         # make sure we found the right file before we update it.
         if self.file_to_update is not None:
@@ -47,7 +48,6 @@ class github_bot():
         # need to get a random number. say, between 1 and 8 commits, weighted towards the bottom?
         number_of_commits = 0
         rand = random.randint(1, 100) # get a random integer between 1 and 100.
-        print rand
         # experiment with weighting.
         if rand < 3:
             number_of_commits = 8
@@ -65,15 +65,15 @@ class github_bot():
             number_of_commits = 2
         else:
             number_of_commits = 1
-        print number_of_commits
+        print "Commits to make: " + str(number_of_commits)
         
         # make the first commit.
         self.run(self.commit_message, self.file_contents)
         
         # make any further commits.
-        for time in range(1, number_of_commits):
+        for commit in range(1, number_of_commits):
             # construct the contents of our commit and commit message.
-            self.content = "Commit number " + str(time + 1) + " for " + self.time_string
+            self.content = "Commit number " + str(commit + 1) + " for " + self.time_string
             self.commit_message = "Another commit for " + self.time_string
             self.file_contents = self.repository.file_contents(self.filename).decoded
             self.file_contents += "\n" + self.content 
@@ -85,5 +85,9 @@ class github_bot():
 
 
 # now we need to instantiate this class.
-bot = github_bot()
-bot.determine_commits()
+try:
+    bot = github_bot()
+    bot.determine_commits()
+    # self.file_to_update[1].update(self.commit_message, self.file_contents, branch)
+except Exception, e:
+    print "error with the bot: " + e.message
