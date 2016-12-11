@@ -4,9 +4,10 @@ import time
 import random
 from keys import token, username, name, email, branch
 from github3 import login
+from Helpers import get_commit_message
 
 
-class GithubBot():
+class GithubBot:
 
     # init method
     def __init__(self):
@@ -21,7 +22,7 @@ class GithubBot():
 
         # construct the contents of our commit and commit message.
         self.content = "Today's date is " + self.time_string + "."
-        self.commit_message = "Commit for " + self.time_string
+        self.commit_message = get_commit_message()  # "Commit for " + self.time_string
 
         self.file_contents = self.repository.file_contents(self.filename, branch).decoded
         self.file_contents += "\n" + self.content
@@ -74,12 +75,12 @@ class GithubBot():
         for commit in range(1, number_of_commits):
             # construct the contents of our commit and commit message.
             self.content = "Commit number " + str(commit + 1) + " for " + self.time_string
-            self.commit_message = "Another commit for " + self.time_string + "."
+            self.commit_message = get_commit_message()  # "Another commit for " + self.time_string + "."
             self.file_contents = self.repository.file_contents(self.filename).decoded
             self.file_contents += "\n" + self.content 
             
             print "content: " + self.content
-            print "commit message: " + self.content
+            print "commit message: " + self.commit_message
             print self.file_contents
             self.run(self.commit_message, self.file_contents)
 
