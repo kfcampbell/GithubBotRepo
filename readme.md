@@ -1,6 +1,6 @@
 # Github Bot Project
 
-I know they got rid of streaks, but this is a bot I made to play with Github's API to post a new file every day.
+They got rid of streaks, but I figured there was still some fun to be had in manipulating the Github API with python.
 
 ## Usage
 Clone the repo, then make a cron job to run the GithubUpdate.py script each day.
@@ -9,7 +9,8 @@ Clone the repo, then make a cron job to run the GithubUpdate.py script each day.
 
 * a better way to construct a JSON request than just string manipulation (done. used github3.py)
 * simply update a single file rather than add a new file each time (done)
-* randomly commit more than once on some occasions and not at all on others
+* randomly commit more than once on some occasions (done)
+* add more interesting commit messages
 * add logging
 
 ## Dependencies
