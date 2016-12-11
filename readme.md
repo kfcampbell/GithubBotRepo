@@ -13,4 +13,4 @@ Clone the repo, then make a cron job to run the GithubUpdate.py script each day.
 * add logging
 
 ## Dependencies
-* github3.py (pip install github3.py)
+* github3.py (pip install github3.py==1.0.0a4)
