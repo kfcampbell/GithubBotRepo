@@ -20,7 +20,7 @@ class GithubBot:
         self.time_now = (time.strftime("%m-%d-%Y-%I-%M-%S"))
         self.time_string = (time.strftime("%m/%d/%Y"))
 
-        # construct the contents of our commit and commit message.
+        # construct the contents of our first commit and commit message.
         self.content = "Today's date is " + self.time_string + "."
         self.commit_message = get_commit_message()  # "Commit for " + self.time_string
 
@@ -32,7 +32,8 @@ class GithubBot:
         self.dir_contents = self.repository.directory_contents('/')
         
     def run(self, commit_message, file_contents):
-        # get the correct file. is there a better way to do this than iterating through?
+        print self.file_contents
+        # get the correct file.
         self.file_to_update = None
         for item in self.dir_contents:
             if item[0] == self.filename:
@@ -42,7 +43,7 @@ class GithubBot:
         # make sure we found the right file before we update it.
         if self.file_to_update is not None:
             # actually update the file.
-            self.file_to_update[1].update(commit_message, file_contents, branch)
+            self.file_to_update[1].update(commit_message, file_contents, branch)  # this is where the repeated 409 error comes from.
             
     # this is where we determine how many times we're going to commit today
     def determine_commits(self):
@@ -76,18 +77,18 @@ class GithubBot:
             # construct the contents of our commit and commit message.
             self.content = "Commit number " + str(commit + 1) + " for " + self.time_string + "."
             self.commit_message = get_commit_message()  # "Another commit for " + self.time_string + "."
-            self.file_contents = self.repository.file_contents(self.filename).decoded
+            self.file_contents = self.repository.file_contents(self.filename, branch).decoded
             self.file_contents += "\n" + self.content 
             
             # print "content: " + self.content
             # print "commit message: " + self.commit_message
-            # print self.file_contents
+            print self.file_contents
             self.run(self.commit_message, self.file_contents)
 
 
-# now we need to instantiate this class.
-try:
-    bot = GithubBot()
-    bot.determine_commits()
-except Exception, e:
-    print "error with the bot: " + e.message
+if __name__ == "__main__":
+    try:
+        bot = GithubBot()
+        bot.determine_commits()
+    except Exception, e:
+        print "error: " + e.message
