@@ -74,7 +74,7 @@ class GithubBot:
         # make any further commits.
         for commit in range(1, number_of_commits):
             # construct the contents of our commit and commit message.
-            self.content = "Commit number " + str(commit + 1) + " for " + self.time_string
+            self.content = "Commit number " + str(commit + 1) + " for " + self.time_string + "."
             self.commit_message = get_commit_message()  # "Another commit for " + self.time_string + "."
             self.file_contents = self.repository.file_contents(self.filename).decoded
             self.file_contents += "\n" + self.content 
