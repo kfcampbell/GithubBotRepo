@@ -5,8 +5,9 @@ import random
 from keys import token, username, name, email, branch
 from github3 import login
 
+
 class github_bot():
-    
+
     # init method
     def __init__(self):
         # login to github and get the correct repository
@@ -29,17 +30,17 @@ class github_bot():
         # get the directory contents
         self.dir_contents = self.repository.directory_contents('/')
         
-    def run(self):
+    def run(self, commit_message, file_contents):
         # get the correct file. is there a better way to do this than iterating through?
         self.file_to_update = None
         for item in self.dir_contents:
-            if(item[0] == self.filename):
+            if item[0] == self.filename:
                 self.file_to_update = item
 
         # make sure we found the right file before we update it.
-        if(self.file_to_update != None):
+        if self.file_to_update is not None:
             # actually update the file.
-            self.file_to_update[1].update(self.commit_message, self.file_contents, branch)
+            self.file_to_update[1].update(commit_message, file_contents, branch)
             
     # this is where we determine how many times we're going to commit today
     def determine_commits(self):
@@ -67,10 +68,10 @@ class github_bot():
         print number_of_commits
         
         # make the first commit.
-        self.run()
+        self.run(self.commit_message, self.file_contents)
         
         # make any further commits.
-        for time in range(1,number_of_commits):
+        for time in range(1, number_of_commits):
             # construct the contents of our commit and commit message.
             self.content = "Commit number " + str(time + 1) + " for " + self.time_string
             self.commit_message = "Another commit for " + self.time_string
@@ -80,7 +81,7 @@ class github_bot():
             print "content: " + self.content
             print "commit message: " + self.content
             print self.file_contents
-            self.run()
+            self.run(self.commit_message, self.file_contents)
 
 
 # now we need to instantiate this class.
